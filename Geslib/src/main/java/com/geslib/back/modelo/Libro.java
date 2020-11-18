@@ -1,5 +1,7 @@
 package com.geslib.back.modelo;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -35,4 +37,14 @@ public class Libro extends Material
 	private int numeroPaginas;
 	
 	private static final long serialVersionUID = 1L;
+
+	public Libro(@NonNull Date fechaPublicacion, Genero genero, @NonNull String titulo, @NonNull String descripcion,
+			String imagen, @NonNull int unidadesDisponibles, @NonNull String isbn, @NonNull String editorial,
+			int numeroPaginas) {
+		super(fechaPublicacion, genero, titulo, descripcion, imagen, unidadesDisponibles);
+		this.isbn = isbn;
+		this.editorial = editorial;
+		this.numeroPaginas = numeroPaginas;
+	}
+	
 }
