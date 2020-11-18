@@ -46,7 +46,6 @@ public class Material implements Serializable
 	@JoinColumn(name="creador")
 	Usuario usuario;
 	
-	@NonNull
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="fecha_publicacion")
 	private Date fechaPublicacion;
@@ -139,7 +138,18 @@ public class Material implements Serializable
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-
+	public Material() {
+		this(Genero.Comedia, "", "","",0);
+		
+	}
+	public Material(Genero genero, @NonNull String titulo, @NonNull String descripcion,
+			String imagen, @NonNull int unidadesDisponibles) {
+		this.genero = genero;
+		this.titulo = titulo;
+		this.descripcion = descripcion;
+		this.imagen = imagen;
+		this.unidadesDisponibles = unidadesDisponibles;
+	}
 	public Material(@NonNull Date fechaPublicacion, Genero genero, @NonNull String titulo, @NonNull String descripcion,
 			String imagen, @NonNull int unidadesDisponibles) {
 		super();

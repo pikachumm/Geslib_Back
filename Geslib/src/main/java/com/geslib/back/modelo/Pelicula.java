@@ -28,13 +28,18 @@ public class Pelicula extends Material
 	@Column(name="duracion")
 	private int duracion;
 	
+	@NonNull
 	@Enumerated
 	@Column(name="formato")
 	private Formato formato;
 	
 	private static final long serialVersionUID = 1L;
-
-	public Pelicula(@NonNull Date fechaPublicacion, Genero genero, @NonNull String titulo, @NonNull String descripcion,
+	public Pelicula() {
+		super();
+		duracion=0;
+		formato = Formato.DVD;
+	}
+	public Pelicula(Date fechaPublicacion, Genero genero, @NonNull String titulo, @NonNull String descripcion,
 			String imagen, @NonNull int unidadesDisponibles, int duracion, Formato formato) {
 		super(fechaPublicacion, genero, titulo, descripcion, imagen, unidadesDisponibles);
 		this.duracion = duracion;

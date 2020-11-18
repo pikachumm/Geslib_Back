@@ -10,6 +10,6 @@ public interface IMaterialService {
 	List<Material>listarLibros();
 	void add (Material material);
 	boolean update (Material material);
-	void delete (Long id);
+	boolean delete (Long id);
 
 }

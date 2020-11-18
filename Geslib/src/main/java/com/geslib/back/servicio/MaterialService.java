@@ -67,9 +67,15 @@ public class MaterialService implements IMaterialService{
 	}
 
 	@Override
-	public void delete(Long id) {
+	public boolean delete(Long id) {
 		// TODO Auto-generated method stub
-		materialRepository.deleteById(id);
+		boolean exito = true;
+		try {
+			materialRepository.deleteById(id);
+		} catch (IllegalArgumentException e) {
+			exito = false;
+		}
+		return exito;
 	}
 
 }
