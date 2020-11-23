@@ -6,6 +6,8 @@ import java.time.LocalDate;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -58,6 +60,7 @@ public class Usuario implements Serializable
 	private LocalDate fechaNacimiento;
 	
 	@NonNull
+	@Enumerated(EnumType.STRING)
 	@Column(name="sexo")
 	private Sexo sexo;
 	

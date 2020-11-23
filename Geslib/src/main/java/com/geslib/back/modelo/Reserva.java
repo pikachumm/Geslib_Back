@@ -44,9 +44,6 @@ public class Reserva implements Serializable{
 	@Column(name="fecha_creacion")
 	private Date fechaCreacion;
 	
-	@NonNull
-	@Column(name="finalizado")
-	private boolean finalizado;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="id_usuario")

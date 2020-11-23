@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,20 +18,11 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-import lombok.experimental.SuperBuilder;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode
-@RequiredArgsConstructor
-@SuperBuilder
+import lombok.NonNull;
+
+
+
 @Entity
 @Table(name="materiales")
 @DiscriminatorColumn(name="tipo")
@@ -40,17 +32,13 @@ public class Material implements Serializable
 	@Id
 	@Column(name="id_material")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long idMaterial;
-	
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="creador")
-	Usuario usuario;
+	private int idMaterial;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="fecha_publicacion")
 	private Date fechaPublicacion;
 	
-	@Enumerated
+	@Enumerated(EnumType.STRING)
 	@Column(name="genero")
 	private Genero genero;
 	
@@ -71,21 +59,11 @@ public class Material implements Serializable
 
 	private static final long serialVersionUID = 1L;
 
-	public Long getIdMaterial() {
+	public int getIdMaterial() {
 		return idMaterial;
 	}
 
-	public void setIdMaterial(Long idMaterial) {
-		this.idMaterial = idMaterial;
-	}
 
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
 
 	public Date getFechaPublicacion() {
 		return fechaPublicacion;
@@ -132,7 +110,11 @@ public class Material implements Serializable
 	}
 
 	public void setUnidadesDisponibles(int unidadesDisponibles) {
+		if(unidadesDisponibles > 0) {
 		this.unidadesDisponibles = unidadesDisponibles;
+		}else {
+			this.unidadesDisponibles = 0;
+		}
 	}
 
 	public static long getSerialversionuid() {

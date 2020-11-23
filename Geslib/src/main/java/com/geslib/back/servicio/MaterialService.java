@@ -1,7 +1,8 @@
 package com.geslib.back.servicio;
 
+import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,27 +24,25 @@ public class MaterialService implements IMaterialService{
 	public List<Material> listarMateriales() {
 		return (List<Material>) materialRepository.findAll();
 	}
-
+	
 	@Override
-	public List<Material> listarPeliculas() {
+	public List<Pelicula> listarPeliculas() {
 		List<Material> materiales = (List<Material>) materialRepository.findAll();
-		List<Material> peliculas = null; 
+		List<Pelicula> peliculas = new ArrayList<Pelicula>();
 		for (Material material : materiales) {
 			if(material instanceof Pelicula) {
-				peliculas.add(material);
+				peliculas.add((Pelicula) material);
 			}
 		}
 		return peliculas;
 	}
-
 	@Override
-	public List<Material> listarLibros() {
-		// TODO Auto-generated method stub
+	public List<Libro> listarLibros() {
 		List<Material> materiales = (List<Material>) materialRepository.findAll();
-		List<Material> libros = null; 
+		List<Libro> libros = new ArrayList<Libro>();
 		for (Material material : materiales) {
 			if(material instanceof Libro) {
-				libros.add(material);
+				libros.add((Libro) material);
 			}
 		}
 		return libros;
@@ -58,24 +57,24 @@ public class MaterialService implements IMaterialService{
 	@Override
 	public boolean update(Material material) {
 		// TODO Auto-generated method stub
-		if(materialRepository.findById(material.getIdMaterial()) != null) {
+		if(materialRepository.findById(material.getIdMaterial()) == null) {
 			materialRepository.save(material);
 			return true;
 		}else {
-			return true;
+			return false;
 		}
 	}
+	 @Override
+	    public void delete(int id) {
+	        materialRepository.deleteById(id);
+	    }
 
 	@Override
-	public boolean delete(Long id) {
+	public Optional<Material> obtenerRecurso(int id) {
 		// TODO Auto-generated method stub
-		boolean exito = true;
-		try {
-			materialRepository.deleteById(id);
-		} catch (IllegalArgumentException e) {
-			exito = false;
-		}
-		return exito;
+		return materialRepository.findById(id);
 	}
+
+
 
 }

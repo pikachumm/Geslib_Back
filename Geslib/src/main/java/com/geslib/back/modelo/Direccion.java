@@ -18,10 +18,6 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@EqualsAndHashCode
 @Entity
 @Table(name="direcciones")
 public class Direccion implements Serializable 
@@ -30,7 +26,7 @@ public class Direccion implements Serializable
 	@Id
 	@Column(name="id_direccion")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long idDireccion;
+	private int idDireccion;
 	
 	@NonNull
 	@Enumerated
@@ -53,14 +49,102 @@ public class Direccion implements Serializable
 	@Column(name="numero_calle")
 	private int numeroCalle;
 	
-	@NonNull
 	@Column(name="piso")
 	private int piso;
 	
-	@NonNull
+
 	@Column(name="letra")
 	private char letra;
 	
 	
+	public Provincia getProvincia() {
+		return provincia;
+	}
+
+
+	public void setProvincia(Provincia provincia) {
+		this.provincia = provincia;
+	}
+
+
+	public String getLocalidad() {
+		return localidad;
+	}
+
+
+	public void setLocalidad(String localidad) {
+		this.localidad = localidad;
+	}
+
+
+	public String getCp() {
+		return cp;
+	}
+
+
+	public void setCp(String cp) {
+		this.cp = cp;
+	}
+
+
+	public String getCalle() {
+		return calle;
+	}
+
+
+	public void setCalle(String calle) {
+		this.calle = calle;
+	}
+
+
+	public int getNumeroCalle() {
+		return numeroCalle;
+	}
+
+
+	public void setNumeroCalle(int numeroCalle) {
+		this.numeroCalle = numeroCalle;
+	}
+
+
+	public int getPiso() {
+		return piso;
+	}
+
+
+	public void setPiso(int piso) {
+		this.piso = piso;
+	}
+
+
+	public char getLetra() {
+		return letra;
+	}
+
+
+	public void setLetra(char letra) {
+		this.letra = letra;
+	}
+
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public Direccion() {
+		this(Provincia.Madrid,"","28030","",1,0,(char) 0);
+	}
+	public Direccion(@NonNull Provincia provincia, @NonNull String localidad, @NonNull String cp,
+			@NonNull String calle, @NonNull int numeroCalle, int piso, char letra) {
+		this.provincia = provincia;
+		this.localidad = localidad;
+		this.cp = cp;
+		this.calle = calle;
+		this.numeroCalle = numeroCalle;
+		this.piso = piso;
+		this.letra = letra;
+	}
+
+
 	private static final long serialVersionUID = 1L;
 }

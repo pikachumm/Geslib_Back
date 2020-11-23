@@ -26,11 +26,24 @@ public class MaterialController {
 	MaterialService materialService;
 	
     @GetMapping("/listarMateriales")
-    public ResponseEntity<List<Material>> list(){
+    public ResponseEntity<List<Material>> listarMateriales(){
     	
         List<Material> list = materialService.listarMateriales();
         return new ResponseEntity(list, HttpStatus.OK);
     }
+    @GetMapping("/listarPeliculas")
+    public ResponseEntity<List<Material>> listarPeliculas(){
+    	
+        List<Pelicula> list = materialService.listarPeliculas();
+        return new ResponseEntity(list, HttpStatus.OK);
+    }
+    @GetMapping("/listarLibros")
+    public ResponseEntity<List<Material>> listarLibros(){
+    	
+        List<Libro> list = materialService.listarLibros();
+        return new ResponseEntity(list, HttpStatus.OK);
+    }
+    
     //Metodo para añadir pelicula y libro borrar luego
     @GetMapping("/borrarLuego")
     public ResponseEntity<List<Material>> added(){
@@ -44,25 +57,40 @@ public class MaterialController {
         return new ResponseEntity("ok", HttpStatus.OK);
     }
     @PostMapping("/addPelicula")
-    public ResponseEntity<?> create(@RequestBody Pelicula pelicula){
+    public ResponseEntity<?> addPelicula(@RequestBody Pelicula pelicula){
      materialService.add(pelicula);
      return new ResponseEntity(HttpStatus.OK);
     }
     @PostMapping("/addLibro")
-    public ResponseEntity<?> create(@RequestBody Libro libro){
+    public ResponseEntity<?> addLibro(@RequestBody Libro libro){
      materialService.add(libro);
      return new ResponseEntity(HttpStatus.OK);
     }
+    @PostMapping("/updateLibro")
+    public ResponseEntity<?> updateLibro(@RequestBody Libro libro){
+     materialService.update(libro);
+     return new ResponseEntity(HttpStatus.OK);
+    }
+    @PostMapping("/updatePelicula")
+    public ResponseEntity<?> updatePelicula(@RequestBody Pelicula pelicula){
+     materialService.update(pelicula);
+     return new ResponseEntity(HttpStatus.OK);
+    }
+   
     // de momento sin funcionar
     @PostMapping("/delete")
-    public ResponseEntity<?> deleted(@RequestBody String id){
-    	
-        if(materialService.delete(Long.parseLong(id))) {
-        	return new ResponseEntity(HttpStatus.CONFLICT);
+    public ResponseEntity<?> delete(@RequestBody String id){
+        materialService.delete(2);
+        return new ResponseEntity(HttpStatus.OK);
+       }
+    @PostMapping("/ObtenerRecurso")
+    public ResponseEntity<?> obtenerRecurso(@RequestBody int id){
+        if(materialService.obtenerRecurso(1) != null) {
+        	return new ResponseEntity(materialService.obtenerRecurso(1),HttpStatus.OK);
         }else {
         	return new ResponseEntity(HttpStatus.OK);
         }
-        
+  
        }
 
 }

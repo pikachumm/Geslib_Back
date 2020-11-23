@@ -5,6 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.geslib.back.modelo.Material;
 
-public interface MaterialRepository extends CrudRepository<Material, Long> {
+public interface MaterialRepository extends CrudRepository<Material, Integer> {
 
 }

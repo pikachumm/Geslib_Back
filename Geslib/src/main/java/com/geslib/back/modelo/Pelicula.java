@@ -2,25 +2,16 @@ package com.geslib.back.modelo;
 import java.util.Date;
 
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Table;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import lombok.ToString;
-import lombok.experimental.SuperBuilder;
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@SuperBuilder
-@EqualsAndHashCode(callSuper = true)
-@ToString(callSuper = true)
+
+
 @Entity
-@DiscriminatorValue("pelicula")
+@Table(name="peliculas")
 public class Pelicula extends Material
 {
 	
@@ -29,11 +20,32 @@ public class Pelicula extends Material
 	private int duracion;
 	
 	@NonNull
-	@Enumerated
+	@Enumerated(EnumType.STRING)
 	@Column(name="formato")
 	private Formato formato;
 	
 	private static final long serialVersionUID = 1L;
+	
+	public int getDuracion() {
+		return duracion;
+	}
+	public void setDuracion(int duracion) {
+		if(duracion > 0) {
+		this.duracion = duracion;
+		}
+		else {
+			this.duracion = 0;
+		}
+	}
+	public Formato getFormato() {
+		return formato;
+	}
+	public void setFormato(Formato formato) {
+		this.formato = formato;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 	public Pelicula() {
 		super();
 		duracion=0;

@@ -1,15 +1,19 @@
 package com.geslib.back.servicio;
 
 import java.util.List;
+import java.util.Optional;
 
+import com.geslib.back.modelo.Libro;
 import com.geslib.back.modelo.Material;
+import com.geslib.back.modelo.Pelicula;
 
 public interface IMaterialService {
 	List<Material>listarMateriales();
-	List<Material>listarPeliculas();
-	List<Material>listarLibros();
+	List<Pelicula> listarPeliculas();
+	List<Libro>listarLibros();
+	Optional<Material> obtenerRecurso(int id);
 	void add (Material material);
 	boolean update (Material material);
-	boolean delete (Long id);
+	void delete (int id);
 
 }
