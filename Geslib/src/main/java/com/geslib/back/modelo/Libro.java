@@ -17,11 +17,11 @@ public class Libro extends Material
 {
 
 	@NonNull
-	@Column(name="isbn", length = 13)
+	@Column(name="isbn")
 	private String isbn;
 	
 	@NonNull
-	@Column(name="editorial",length = 30)
+	@Column(name="editorial")
 	private String editorial;
 	
 	@Column(name="numero_paginas")
@@ -42,5 +42,27 @@ public class Libro extends Material
 		this.editorial = editorial;
 		this.numeroPaginas = numeroPaginas;
 	}
+	public String getIsbn() {
+		return isbn;
+	}
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
+	}
+	public String getEditorial() {
+		return editorial;
+	}
+	public void setEditorial(String editorial) {
+		this.editorial = editorial;
+	}
+	public int getNumeroPaginas() {
+		return numeroPaginas;
+	}
+	public void setNumeroPaginas(int numeroPaginas) {
+		this.numeroPaginas = numeroPaginas;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	
 	
 }

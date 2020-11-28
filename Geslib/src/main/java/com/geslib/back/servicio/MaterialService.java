@@ -12,13 +12,19 @@ import org.springframework.transaction.annotation.Transactional;
 import com.geslib.back.modelo.Libro;
 import com.geslib.back.modelo.Material;
 import com.geslib.back.modelo.Pelicula;
+import com.geslib.back.repositorio.LibroRepository;
 import com.geslib.back.repositorio.MaterialRepository;
+import com.geslib.back.repositorio.PeliculaRepository;
 @Service
 @Transactional
 public class MaterialService implements IMaterialService{
 	
 	@Autowired
 	private MaterialRepository materialRepository;
+	@Autowired
+	private PeliculaRepository peliculaRepository;
+	@Autowired
+	private LibroRepository LibroRepository;
 	
 	@Override
 	public List<Material> listarMateriales() {
@@ -49,9 +55,14 @@ public class MaterialService implements IMaterialService{
 	}
 
 	@Override
-	public void add(Material material) {
+	public void addPelicula(Pelicula pelicula) {
 		// TODO Auto-generated method stub
-		materialRepository.save(material);
+		peliculaRepository.save(pelicula);
+	}
+	@Override
+	public void addLibro(Libro libro) {
+		// TODO Auto-generated method stub
+		LibroRepository.save(libro);
 	}
 
 	@Override

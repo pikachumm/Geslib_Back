@@ -12,7 +12,8 @@ public interface IMaterialService {
 	List<Pelicula> listarPeliculas();
 	List<Libro>listarLibros();
 	Optional<Material> obtenerRecurso(int id);
-	void add (Material material);
+	void addPelicula(Pelicula pelicula);
+	void addLibro(Libro libro);
 	boolean update (Material material);
 	void delete (int id);
 

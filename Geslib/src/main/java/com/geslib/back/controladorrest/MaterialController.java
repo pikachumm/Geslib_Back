@@ -51,19 +51,19 @@ public class MaterialController {
     	Date d = new java.sql.Date(1899, 4, 5);
         Pelicula p = new Pelicula(d, Genero.Comedia, "titulo 0", "descripcion", "/", 3, 5, Formato.VHS);
         Libro l = new Libro(d, Genero.Accion, "libro", "DES", "/", 5, "454543", "A", 7);
-        materialService.add(p);
-        materialService.add(l);
+        materialService.addPelicula(p);
+        materialService.addLibro(l);
     
         return new ResponseEntity("ok", HttpStatus.OK);
     }
     @PostMapping("/addPelicula")
     public ResponseEntity<?> addPelicula(@RequestBody Pelicula pelicula){
-     materialService.add(pelicula);
+     materialService.addPelicula(pelicula);
      return new ResponseEntity(HttpStatus.OK);
     }
     @PostMapping("/addLibro")
     public ResponseEntity<?> addLibro(@RequestBody Libro libro){
-     materialService.add(libro);
+     materialService.addLibro(libro);
      return new ResponseEntity(HttpStatus.OK);
     }
     @PostMapping("/updateLibro")
