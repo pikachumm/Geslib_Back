@@ -1,5 +1,6 @@
 package com.geslib.back.controladorrest;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.geslib.back.modelo.Comentario;
+import com.geslib.back.modelo.Id;
 import com.geslib.back.servicio.ComentarioService;
 
 @RestController
@@ -20,29 +22,34 @@ public class ComentarioController {
 	@Autowired
 	ComentarioService comentarioService;
 	
-	@GetMapping("/listarComentarios")
+	@GetMapping("/list")
     public ResponseEntity<List<Comentario>> listarComentarios(){
 		List<Comentario> list = comentarioService.listarComentario();
 		 return new ResponseEntity(list, HttpStatus.OK);
 	}
+	@GetMapping("/test")
+    public ResponseEntity<List<Comentario>> test(){
+		Comentario t = new Comentario("comentario", "texto", new Date(2020, 1, 1, 1, 1), null, null);
+		 return new ResponseEntity(HttpStatus.OK);
+	}
 	
-	@PostMapping("/addComentario")
+	@PostMapping("/add")
 	public ResponseEntity<?> addComentario(@RequestBody Comentario comentario){
 		comentarioService.add(comentario);
 		 return new ResponseEntity(HttpStatus.OK);
 	}
-	@PostMapping("/updateComentario")
+	@PostMapping("/update")
 	public ResponseEntity<?> updateComentario(@RequestBody Comentario comentario){
 		comentarioService.update(comentario);
 		 return new ResponseEntity(HttpStatus.OK);
 	}
-	@PostMapping("/getComentario")
+	@PostMapping("/get")
 	public ResponseEntity<?> updateComentario(@RequestBody int id){
 		 return new ResponseEntity(comentarioService.get(id),HttpStatus.OK);
 	}
-	@PostMapping("/deleteComentario")
-	public ResponseEntity<?> deleteComentario(@RequestBody int id){
-		comentarioService.delete(id);
+	@PostMapping("/delete")
+	public ResponseEntity<?> deleteComentario(@RequestBody Id id){
+		comentarioService.delete(id.getId());
 		 return new ResponseEntity(HttpStatus.OK);
 	}
 	

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.geslib.back.modelo.Formato;
 import com.geslib.back.modelo.Genero;
+import com.geslib.back.modelo.Id;
 import com.geslib.back.modelo.Libro;
 import com.geslib.back.modelo.Material;
 import com.geslib.back.modelo.Pelicula;
@@ -25,7 +26,7 @@ public class MaterialController {
 	@Autowired
 	MaterialService materialService;
 	
-    @GetMapping("/listarMateriales")
+    @GetMapping("/list")
     public ResponseEntity<List<Material>> listarMateriales(){
     	
         List<Material> list = materialService.listarMateriales();
@@ -77,15 +78,15 @@ public class MaterialController {
      return new ResponseEntity(HttpStatus.OK);
     }
    
-    // de momento sin funcionar
+
     @PostMapping("/delete")
-    public ResponseEntity<?> delete(@RequestBody String id){
-        materialService.delete(2);
+    public ResponseEntity<?> delete(@RequestBody Id id){
+        materialService.delete(id.getId());
         return new ResponseEntity(HttpStatus.OK);
        }
-    @PostMapping("/ObtenerRecurso")
-    public ResponseEntity<?> obtenerRecurso(@RequestBody int id){
-        if(materialService.obtenerRecurso(1) != null) {
+    @PostMapping("/get")
+    public ResponseEntity<?> get(@RequestBody Id id){
+        if(materialService.obtenerRecurso(id.getId()) != null) {
         	return new ResponseEntity(materialService.obtenerRecurso(1),HttpStatus.OK);
         }else {
         	return new ResponseEntity(HttpStatus.OK);
