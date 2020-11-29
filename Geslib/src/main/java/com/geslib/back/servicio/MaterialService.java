@@ -86,6 +86,27 @@ public class MaterialService implements IMaterialService{
 		return materialRepository.findById(id);
 	}
 
+	@Override
+	public boolean exits(int id) {
+		// TODO Auto-generated method stub
+		boolean exits  = false;
+		if(materialRepository.findById(id) != null) {
+			exits = true;
+		}
+		return exits;
+	}
+
+	@Override
+	public boolean hacerReserva(int id, int unidades) {
+		// TODO Auto-generated method stub
+		if(exits(id)) {
+			Optional<Material> mat = obtenerRecurso(id);
+			
+			
+		}
+		return false;
+	}
+
 
 
 }

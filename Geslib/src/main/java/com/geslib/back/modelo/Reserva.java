@@ -22,10 +22,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@EqualsAndHashCode
+
 @Entity
 @Table(name= "reservas")
 public class Reserva implements Serializable{
@@ -54,4 +51,25 @@ public class Reserva implements Serializable{
 	Material material;
 	
 	private static final long serialVersionUID = 1L;
+	public Reserva () {
+		
+	}
+	public Reserva(long idReserva, @NonNull int unidades, @NonNull Date fechaCreacion, Usuario usuario,
+			Material material) {
+		super();
+		this.idReserva = idReserva;
+		this.unidades = unidades;
+		this.fechaCreacion = fechaCreacion;
+		this.usuario = usuario;
+		this.material = material;
+	}
+
+	public Reserva(@NonNull int unidades, @NonNull Date fechaCreacion, Usuario usuario, Material material) {
+		super();
+		this.unidades = unidades;
+		this.fechaCreacion = fechaCreacion;
+		this.usuario = usuario;
+		this.material = material;
+	}
+	
 }

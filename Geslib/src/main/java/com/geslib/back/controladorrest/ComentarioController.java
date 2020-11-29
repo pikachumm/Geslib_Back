@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.geslib.back.Temporals.Id;
+import com.geslib.back.Temporals.Mensaje;
 import com.geslib.back.modelo.Comentario;
-import com.geslib.back.modelo.Id;
+
 import com.geslib.back.servicio.ComentarioService;
 
 @RestController
@@ -44,13 +46,22 @@ public class ComentarioController {
 		 return new ResponseEntity(HttpStatus.OK);
 	}
 	@PostMapping("/get")
-	public ResponseEntity<?> updateComentario(@RequestBody int id){
-		 return new ResponseEntity(comentarioService.get(id),HttpStatus.OK);
+	public ResponseEntity<?> updateComentario(@RequestBody Id id){
+		if(comentarioService.exits(id.getId())) {
+			 return new ResponseEntity(comentarioService.get(id.getId()),HttpStatus.OK);
+		}else {
+			 return new ResponseEntity(new Mensaje("Error"),HttpStatus.BAD_REQUEST);
+		}
+		
 	}
 	@PostMapping("/delete")
 	public ResponseEntity<?> deleteComentario(@RequestBody Id id){
-		comentarioService.delete(id.getId());
-		 return new ResponseEntity(HttpStatus.OK);
+		if(comentarioService.exits(id.getId())) {
+			return new ResponseEntity("borrado",HttpStatus.OK);
+		}else {
+			return new ResponseEntity(HttpStatus.OK);
+		}
+		
 	}
 	
 	

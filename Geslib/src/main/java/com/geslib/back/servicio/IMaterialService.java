@@ -16,5 +16,7 @@ public interface IMaterialService {
 	void addLibro(Libro libro);
 	boolean update (Material material);
 	void delete (int id);
+	boolean exits(int id);
+	boolean hacerReserva(int id, int unidades);
 
 }

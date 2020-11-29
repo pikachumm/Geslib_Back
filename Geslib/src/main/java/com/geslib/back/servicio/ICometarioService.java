@@ -13,5 +13,6 @@ public interface ICometarioService {
 	void add (Comentario comentario);
 	boolean update (Comentario comentario);
 	void delete (int id);
+	boolean exits(int id);
 
 }

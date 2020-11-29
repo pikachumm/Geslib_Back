@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.geslib.back.modelo.Comentario;
 import com.geslib.back.repositorio.ComentarioRepository;
+
 @Service
 @Transactional
 public class ComentarioService implements ICometarioService{
@@ -43,10 +44,20 @@ public class ComentarioService implements ICometarioService{
 			return false;
 		}
 	}
-
+	
 	@Override
 	public void delete(int id) {
 		// TODO Auto-generated method stub
 		comentarioRepository.deleteById(id);
+	}
+
+	@Override
+	public boolean exits(int id) {
+		// TODO Auto-generated method stub
+		boolean resultado = false;
+		if(comentarioRepository.findById(id) != null) {
+			resultado = true;
+		}
+		return resultado;
 	} 
 }

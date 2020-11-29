@@ -11,4 +11,5 @@ public interface IReservaService {
 	void add(Reserva reserva);
 	boolean update(Reserva reserva);
 	void delete(int id);
+	boolean exits(int id);
 }

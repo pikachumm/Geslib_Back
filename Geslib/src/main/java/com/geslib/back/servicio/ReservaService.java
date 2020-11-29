@@ -45,6 +45,16 @@ public class ReservaService implements IReservaService{
 		// TODO Auto-generated method stub
 		reservaRepository.deleteById(id);
 	}
+
+	@Override
+	public boolean exits(int id) {
+		// TODO Auto-generated method stub
+		boolean exits = false;
+		if(reservaRepository.findById(id) != null) {
+			exits = true;
+		}
+		return false;
+	}
 	
 
 }
