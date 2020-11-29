@@ -1,4 +1,4 @@
-package com.geslib.back.modelo;
+package com.geslib.back.Temporals;
 
 import java.io.Serializable;
 

@@ -3,6 +3,8 @@ package com.geslib.back.modelo;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -75,10 +77,135 @@ public class Usuario implements Serializable
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="id_direccion")
 	Direccion direccion;
-	   @ManyToOne(cascade = CascadeType.ALL)
-	   @JoinColumn(name= "id_rol")
-	    private Rol rol;
-	private static final long serialVersionUID = 1L;
-	
+	  @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	    @JoinTable(
+	            name = "users_roles",
+	            joinColumns = @JoinColumn(name = "user_id"),
+	            inverseJoinColumns = @JoinColumn(name = "role_id")
+	            )
+	    private Set<Rol> roles = new HashSet(); 
+	public Usuario() {
 
+	}
+	public Usuario(long idUsuario, @NonNull String dni, @NonNull String email, @NonNull String password,
+			@NonNull String nickname, @NonNull boolean administrador, @NonNull LocalDate fechaNacimiento,
+			@NonNull Sexo sexo, @NonNull String nombre, @NonNull String apellidos, Direccion direccion,
+			Set<Rol> roles) {
+		this.idUsuario = idUsuario;
+		this.dni = dni;
+		this.email = email;
+		this.password = password;
+		this.nickname = nickname;
+		this.administrador = administrador;
+		this.fechaNacimiento = fechaNacimiento;
+		this.sexo = sexo;
+		this.nombre = nombre;
+		this.apellidos = apellidos;
+		this.direccion = direccion;
+		this.roles = roles;
+	}
+	public Usuario(@NonNull String dni, @NonNull String email, @NonNull String password, @NonNull String nickname,
+			@NonNull boolean administrador, @NonNull LocalDate fechaNacimiento, @NonNull Sexo sexo,
+			@NonNull String nombre, @NonNull String apellidos, Direccion direccion) {
+		super();
+		this.dni = dni;
+		this.email = email;
+		this.password = password;
+		this.nickname = nickname;
+		this.administrador = administrador;
+		this.fechaNacimiento = fechaNacimiento;
+		this.sexo = sexo;
+		this.nombre = nombre;
+		this.apellidos = apellidos;
+		this.direccion = direccion;
+	}
+	public Usuario(@NonNull String dni, @NonNull String email, @NonNull String password, @NonNull String nickname,
+			@NonNull boolean administrador, @NonNull LocalDate fechaNacimiento, @NonNull Sexo sexo,
+			@NonNull String nombre, @NonNull String apellidos, Direccion direccion, Set<Rol> roles) {
+		super();
+		this.dni = dni;
+		this.email = email;
+		this.password = password;
+		this.nickname = nickname;
+		this.administrador = administrador;
+		this.fechaNacimiento = fechaNacimiento;
+		this.sexo = sexo;
+		this.nombre = nombre;
+		this.apellidos = apellidos;
+		this.direccion = direccion;
+		this.roles = roles;
+	}
+	public long getIdUsuario() {
+		return idUsuario;
+	}
+	public void setIdUsuario(long idUsuario) {
+		this.idUsuario = idUsuario;
+	}
+	public String getDni() {
+		return dni;
+	}
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+	public boolean isAdministrador() {
+		return administrador;
+	}
+	public void setAdministrador(boolean administrador) {
+		this.administrador = administrador;
+	}
+	public LocalDate getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+	public void setFechaNacimiento(LocalDate fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
+	}
+	public Sexo getSexo() {
+		return sexo;
+	}
+	public void setSexo(Sexo sexo) {
+		this.sexo = sexo;
+	}
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	public String getApellidos() {
+		return apellidos;
+	}
+	public void setApellidos(String apellidos) {
+		this.apellidos = apellidos;
+	}
+	public Direccion getDireccion() {
+		return direccion;
+	}
+	public void setDireccion(Direccion direccion) {
+		this.direccion = direccion;
+	}
+	public Set<Rol> getRoles() {
+		return roles;
+	}
+	public void setRoles(Set<Rol> roles) {
+		this.roles = roles;
+	}
+	
 }
