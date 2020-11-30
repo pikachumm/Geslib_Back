@@ -1,7 +1,7 @@
 package com.geslib.back.modelo;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -21,12 +21,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+
 
 
 /** 
@@ -50,7 +47,6 @@ public class Usuario implements Serializable
 	
 	@NonNull
 	@Column(name="dni", length = 9)
-	@EqualsAndHashCode.Include
 	private String dni;
 	
 	@NonNull
@@ -90,7 +86,7 @@ public class Usuario implements Serializable
 	            joinColumns = @JoinColumn(name = "id_usuario"),
 	            inverseJoinColumns = @JoinColumn(name = "id_rol")
 	            )
-	    private Set<Rol> roles = new HashSet();
+	    private Set<Rol> roles = new HashSet<Rol>();
 	private static final long serialVersionUID = 1L;
 	public Usuario() {
 		
