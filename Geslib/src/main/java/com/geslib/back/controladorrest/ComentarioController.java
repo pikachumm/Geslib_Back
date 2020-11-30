@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
-import com.geslib.back.Temporals.Id;
-import com.geslib.back.Temporals.Mensaje;
 import com.geslib.back.Validators.Validator;
 import com.geslib.back.modelo.Comentario;
 
@@ -104,7 +102,7 @@ public class ComentarioController {
 	public ResponseEntity<?> deleteComentario(@RequestBody int id){
 		if(comentarioService.delete(id)) {
 			
-			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity(HttpStatus.OK);
 		}else {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
 		}

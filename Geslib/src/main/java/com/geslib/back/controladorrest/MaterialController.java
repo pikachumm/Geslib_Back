@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import com.geslib.back.Temporals.Id;
-import com.geslib.back.Temporals.Mensaje;
 import com.geslib.back.Validators.Validator;
 import com.geslib.back.modelo.Formato;
 import com.geslib.back.modelo.Genero;
@@ -208,9 +206,9 @@ public class MaterialController {
     public ResponseEntity<?> delete(@RequestBody int id){
     	if(materialService.exits(id)) {
         materialService.delete(id);
-        return new ResponseEntity(new Mensaje("ok"),HttpStatus.OK);
+        return new ResponseEntity(HttpStatus.OK);
         }
-        return new ResponseEntity(new Mensaje("Mal"),HttpStatus.OK);
+        return new ResponseEntity(HttpStatus.BAD_REQUEST);
        }
     
     /** 
@@ -226,7 +224,7 @@ public class MaterialController {
         if(materialService.obtenerRecurso(id) != null) {
         	return new ResponseEntity(materialService.obtenerRecurso(1),HttpStatus.OK);
         }else {
-        	return new ResponseEntity(new Mensaje("Error"),HttpStatus.OK);
+        	return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
   
        }
