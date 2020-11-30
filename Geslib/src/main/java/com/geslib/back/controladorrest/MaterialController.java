@@ -19,31 +19,68 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import com.geslib.back.Temporals.Id;
 import com.geslib.back.Temporals.Mensaje;
+import com.geslib.back.Validators.Validator;
 import com.geslib.back.modelo.Formato;
 import com.geslib.back.modelo.Genero;
 import com.geslib.back.modelo.Libro;
 import com.geslib.back.modelo.Material;
 import com.geslib.back.modelo.Pelicula;
 import com.geslib.back.servicio.MaterialService;
-
+/** 
+ * Controlador Rest para servicios de comentarios
+ * Se encarga de las peticiones post y get 
+ * consta de las siguientes funciones:
+ * {@link listarMateriales},
+ * {@link listarPeliculas},
+ * {@link listarLibros},
+ * {@link addPelicula},
+ * {@link addLibro},
+ * {@link updateLibro}
+ * {@link updatePelicula}
+ * {@link delete}
+ * {@link get}
+ * 
+ * @author Miguel del Pozo y Rafael Sacristan
+ * @version 1.0
+*/
 @RestController
 @RequestMapping("/materiales")
 public class MaterialController {
 	@Autowired
 	MaterialService materialService;
+	
+	private Validator validator = new Validator();
+	
+	//ruta en la que se almacenaran las imagenes
 	private static String UPLOADED_FOLDER = "C://temp//";
+	
+	/** 
+	* Devuelve una lista con todos los materiales sean peliculas o libros
+	* @param none
+	* @return list<Materiales>
+	*/
     @GetMapping("/list")
     public ResponseEntity<List<Material>> listarMateriales(){
     	
         List<Material> list = materialService.listarMateriales();
         return new ResponseEntity(list, HttpStatus.OK);
     }
+    /** 
+	* Devuelve una lista con todos los materiales que sean peliculas
+	* @param none
+	* @return list<Pelicula>
+	*/
     @GetMapping("/listarPeliculas")
-    public ResponseEntity<List<Material>> listarPeliculas(){
+    public ResponseEntity<List<Pelicula>> listarPeliculas(){
     	
         List<Pelicula> list = materialService.listarPeliculas();
         return new ResponseEntity(list, HttpStatus.OK);
     }
+    /** 
+	* Devuelve una lista con todos los materiales que sean libros
+	* @param none
+	* @return list<Libro>
+	*/
     @GetMapping("/listarLibros")
     public ResponseEntity<List<Material>> listarLibros(){
     	
@@ -63,9 +100,20 @@ public class MaterialController {
     
         return new ResponseEntity("ok", HttpStatus.OK);
     }
+    
+    /** 
+	* Dado un material de tipo Pelicula este lo valida y añade a bbddd si procede
+	* ademas comprobara si recibe una imagen, en caso de ser valida esta se almacenara en la
+	* carpeta especificada y guardara la direccion del mismo en bbddd
+	* 
+	* @param Pelicula file
+	* @return {@link HttpStatus}}
+	*/
     @PostMapping("/addPelicula")
     public ResponseEntity<?> addPelicula(@RequestBody Pelicula pelicula,@RequestBody(required = false) MultipartFile file){
-    	 if (file.isEmpty()) {
+    	if(validator.isValid(pelicula)) {
+    		
+    	if (file.isEmpty()) {
              pelicula.setImagen("/");
              try {
 
@@ -80,11 +128,24 @@ public class MaterialController {
              }
      materialService.addPelicula(pelicula);
     }
-    	 return new ResponseEntity(HttpStatus.OK);
-    	 }
+    	 }else {
+    		
+    	}
+    	return new ResponseEntity(HttpStatus.OK);
+    	}
+    
+    /** 
+	* Dado un material de tipo Libro este lo valida y añade a bbddd si procede
+	* ademas comprobara si recibe una imagen, en caso de ser valida esta se almacenara en la
+	* carpeta especificada y guardara la direccion del mismo en bbddd
+	* 
+	* @param Pelicula file
+	* @return {@link HttpStatus}}
+	*/
     @PostMapping("/addLibro")
-    public ResponseEntity<?> addLibro(@RequestBody Libro libro,@RequestBody(required = false) MultipartFile file){
-     if (file == null) {
+    public ResponseEntity<?> addLibro(@RequestBody Libro libro,@RequestParam(required = false) MultipartFile file){
+    	if(validator.isValid(libro)) {
+    		if (file == null) {
          libro.setImagen("/");
      }else {
          try {
@@ -100,36 +161,75 @@ public class MaterialController {
          materialService.addLibro(libro);
 
      }
-     return new ResponseEntity(HttpStatus.OK);
+   
+    	}  return new ResponseEntity(HttpStatus.OK);
+    	
     }
+    
+    /** 
+	* Dado un material de tipo Libro este lo valida y si existe en 
+	* bbdd un material con dicho id este sera actualizado en bbdd
+	* 
+	* @param Libro file
+	* @return {@link HttpStatus}}
+	*/
     @PostMapping("/updateLibro")
     public ResponseEntity<?> updateLibro(@RequestBody Libro libro){
-     materialService.update(libro);
+    	if(validator.isValid(libro)) {
+    		materialService.update(libro);
+    	}
+    
      return new ResponseEntity(HttpStatus.OK);
     }
+    
+    /** 
+	* Dado un material de tipo Libro este lo valida y si existe en 
+	* bbdd un material con dicho id este sera actualizado en bbdd
+	* 
+	* @param Pelicula file
+	* @return {@link HttpStatus}}
+	*/
     @PostMapping("/updatePelicula")
     public ResponseEntity<?> updatePelicula(@RequestBody Pelicula pelicula){
-     materialService.update(pelicula);
-     return new ResponseEntity(HttpStatus.OK);
+    	if(validator.isValid(pelicula)) {
+    		materialService.update(pelicula);
+    	}
+    	return new ResponseEntity(HttpStatus.OK);
     }
-   
 
-    @PostMapping("/delete")
-    public ResponseEntity<?> delete(@RequestBody Id id){
-    	if(materialService.exits(id.getId())) {
-        materialService.delete(id.getId());
+    
+    /** 
+	* Dado un id de material este lo buscara y en caso de ser existir en bbdd sera borrado
+	* 
+	* @param int
+	* @return {@link HttpStatus}
+	*/
+    @GetMapping("/delete{id}")
+    public ResponseEntity<?> delete(@RequestBody int id){
+    	if(materialService.exits(id)) {
+        materialService.delete(id);
         return new ResponseEntity(new Mensaje("ok"),HttpStatus.OK);
         }
         return new ResponseEntity(new Mensaje("Mal"),HttpStatus.OK);
        }
-    @PostMapping("/get")
-    public ResponseEntity<?> get(@RequestBody Id id){
-        if(materialService.obtenerRecurso(id.getId()) != null) {
+    
+    /** 
+	* Dado un id de material este lo buscara y en caso de ser existir en bbdd
+	* sera enviado 
+	* 
+	* 
+	* @param int
+	* @return {@link HttpStatus}
+	*/
+    @GetMapping("/get{id}")
+    public ResponseEntity<?> get(@RequestBody int id){
+        if(materialService.obtenerRecurso(id) != null) {
         	return new ResponseEntity(materialService.obtenerRecurso(1),HttpStatus.OK);
         }else {
         	return new ResponseEntity(new Mensaje("Error"),HttpStatus.OK);
         }
   
        }
+    
 
 }

@@ -7,69 +7,71 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.geslib.back.modelo.Reserva;
-import com.geslib.back.repositorio.MaterialRepository;
-import com.geslib.back.repositorio.ReservaRepository;
+import com.geslib.back.modelo.Usuario;
+import com.geslib.back.repositorio.RolRepository;
 import com.geslib.back.repositorio.UsuarioRepository;
 
 /** 
  * Aqui se aplicaran todas las funciones de los
- * controladores Rest referentes a Reserva
+ * controladores Rest referentes a Usuario
  * 
  * @author Miguel del Pozo y Rafael Sacristan
  * @version 1.0
 */
 @Service
 @Transactional
-public class ReservaService implements IReservaService{
-	@Autowired
-	ReservaRepository reservaRepository;
-	
+public class UsuarioService implements IUsuarioService{
 	@Autowired
 	UsuarioRepository usuarioRepository;
 	
+	
+	
 	@Autowired
-	private MaterialRepository materialRepository;
-
+	RolRepository rolRepository;
 	@Override
-	public List<Reserva> listarReservas() {
+	public List<Usuario> listar() {
 		// TODO Auto-generated method stub
-		return (List<Reserva>) reservaRepository.findAll();
+		return usuarioRepository.findAll();
 	}
 
 	@Override
-	public Optional<Reserva> obtenerReserva(int id) {
+	public void Add(Usuario usuario) {
 		// TODO Auto-generated method stub
-		return reservaRepository.findById(id);
+		usuarioRepository.save(usuario);
 	}
 
 	@Override
-	public void add(Reserva reserva) {
+	public Optional<Usuario> get(int id) {
 		// TODO Auto-generated method stub
-		reservaRepository.save(reserva);
+		return usuarioRepository.findById(id);
 	}
 
 	@Override
-	public boolean update(Reserva reserva) {
+	public boolean update(Usuario usuario) {
 		// TODO Auto-generated method stub
-		return false;
+		boolean exito = false;
+		if(usuarioRepository.existsById(usuario.getIdUsuario())) {
+			usuarioRepository.save(usuario);
+			exito = true;
+		}
+		return exito;
 	}
 
 	@Override
-	public void delete(int id) {
+	public boolean delete(int id) {
 		// TODO Auto-generated method stub
-		reservaRepository.deleteById(id);
+		boolean exito = false;
+		if(usuarioRepository.existsById(id)) {
+			exito = true;
+			usuarioRepository.deleteById(id);
+		}
+		return exito;
 	}
 
 	@Override
 	public boolean exits(int id) {
 		// TODO Auto-generated method stub
-		boolean exits = false;
-		if(reservaRepository.findById(id) != null) {
-			exits = true;
-		}
-		return false;
+		return usuarioRepository.existsById(id);
 	}
-	
 
 }

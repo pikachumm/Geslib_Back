@@ -15,16 +15,27 @@ import com.geslib.back.modelo.Pelicula;
 import com.geslib.back.repositorio.LibroRepository;
 import com.geslib.back.repositorio.MaterialRepository;
 import com.geslib.back.repositorio.PeliculaRepository;
+
+/** 
+ * Aqui se aplicaran todas las funciones de los
+ * controladores Rest referentes a Material que
+ * incluyen Pelicula y Libro
+ * 
+ * @author Miguel del Pozo y Rafael Sacristan
+ * @version 1.0
+*/
 @Service
 @Transactional
 public class MaterialService implements IMaterialService{
 	
-	@Autowired
-	private MaterialRepository materialRepository;
+	
+
 	@Autowired
 	private PeliculaRepository peliculaRepository;
 	@Autowired
-	private LibroRepository LibroRepository;
+	private LibroRepository libroRepository;
+	@Autowired
+	private MaterialRepository materialRepository;
 	
 	@Override
 	public List<Material> listarMateriales() {
@@ -62,7 +73,7 @@ public class MaterialService implements IMaterialService{
 	@Override
 	public void addLibro(Libro libro) {
 		// TODO Auto-generated method stub
-		LibroRepository.save(libro);
+		libroRepository.save(libro);
 	}
 
 	@Override
@@ -105,6 +116,12 @@ public class MaterialService implements IMaterialService{
 			
 		}
 		return false;
+	}
+
+	@Override
+	public Optional<Material> get(int id) {
+		// TODO Auto-generated method stub
+		return materialRepository.findById(id);
 	}
 
 

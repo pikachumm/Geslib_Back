@@ -5,6 +5,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,6 +19,16 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
+/** 
+ *Modelo de Direccion almacenara la informacion sobre donde
+ *vive cada usuario consta de constructores
+ *por defecto sin paramentros con todos los parametros y con
+ *todos los parametros excepto el id
+ *getters y setters hascode e equals
+ * 
+ * @author Miguel del Pozo y Rafael Sacristan
+ * @version 1.0
+*/
 @Entity
 @Table(name="direcciones")
 public class Direccion implements Serializable 
@@ -29,7 +40,7 @@ public class Direccion implements Serializable
 	private int idDireccion;
 	
 	@NonNull
-	@Enumerated
+	@Enumerated(EnumType.STRING)
 	@Column(name="provincia")
 	private Provincia provincia;
 	
@@ -53,7 +64,7 @@ public class Direccion implements Serializable
 	private int piso;
 	
 
-	@Column(name="letra")
+	@Column(name="letra", length = 1)
 	private char letra;
 	
 	

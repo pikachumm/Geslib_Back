@@ -10,6 +10,14 @@ import javax.persistence.Table;
 import lombok.NonNull;
 
 
+/** 
+ *Modelo de Pelicula extiende de material consta de constructores
+ *por defecto sin paramentros con todos los parametros y con
+ *todos los parametros excepto el id,getters, setters hashcode e equals
+ * 
+ * @author Miguel del Pozo y Rafael Sacristan
+ * @version 1.0
+*/
 @Entity
 @Table(name="peliculas")
 public class Pelicula extends Material

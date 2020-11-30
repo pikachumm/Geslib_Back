@@ -1,5 +1,12 @@
 package com.geslib.back.modelo;
 
+/** 
+ * Enum de Provincia almacena todas las posibles
+ * provincias de la direccion
+ * 
+ * @author Miguel del Pozo y Rafael Sacristan
+ * @version 1.0
+*/
 public enum Provincia 
 {
 	Acoruna, Alava, Albacete, Alicante, Almeria, Asturias, Avila, Badajoz,

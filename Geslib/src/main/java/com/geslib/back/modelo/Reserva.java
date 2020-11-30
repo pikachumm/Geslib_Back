@@ -23,6 +23,16 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 
+/** 
+ *Modelo de Reserva almacenara la informacion sobre las 
+ *reservas que realiza cada usuario consta de constructores
+ *por defecto sin paramentros con todos los parametros y con
+ *todos los parametros excepto el id
+ *getters y setters hascode e equals
+ * 
+ * @author Miguel del Pozo y Rafael Sacristan
+ * @version 1.0
+*/
 @Entity
 @Table(name= "reservas")
 public class Reserva implements Serializable{
@@ -30,7 +40,7 @@ public class Reserva implements Serializable{
 	@Id
 	@Column(name="id_reserva")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long idReserva;
+	private int idReserva;
 	
 	@NonNull
 	@Column(name="unidades")
@@ -54,7 +64,7 @@ public class Reserva implements Serializable{
 	public Reserva () {
 		
 	}
-	public Reserva(long idReserva, @NonNull int unidades, @NonNull Date fechaCreacion, Usuario usuario,
+	public Reserva(int idReserva, @NonNull int unidades, @NonNull Date fechaCreacion, Usuario usuario,
 			Material material) {
 		super();
 		this.idReserva = idReserva;
@@ -70,6 +80,39 @@ public class Reserva implements Serializable{
 		this.fechaCreacion = fechaCreacion;
 		this.usuario = usuario;
 		this.material = material;
+	}
+	public int getIdReserva() {
+		return idReserva;
+	}
+	public void setIdReserva(int idReserva) {
+		this.idReserva = idReserva;
+	}
+	public int getUnidades() {
+		return unidades;
+	}
+	public void setUnidades(int unidades) {
+		this.unidades = unidades;
+	}
+	public Date getFechaCreacion() {
+		return fechaCreacion;
+	}
+	public void setFechaCreacion(Date fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
+	}
+	public Usuario getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+	public Material getMaterial() {
+		return material;
+	}
+	public void setMaterial(Material material) {
+		this.material = material;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 	
 }

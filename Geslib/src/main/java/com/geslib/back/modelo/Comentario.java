@@ -15,10 +15,19 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-
 import lombok.NonNull;
 
-
+/** 
+ *Modelo de Comentario se almacenara la informacion de los
+ *comentarios sobre los materiales consta de constructores
+ *por defecto sin paramentros con todos los parametros y con
+ *todos los parametros excepto el id y todos los getters y setters
+ *Hascode e equals
+ *
+ * 
+ * @author Miguel del Pozo y Rafael Sacristan
+ * @version 1.0
+*/
 @Entity
 @Table(name= "comentarios")
 public class Comentario implements Serializable
@@ -52,11 +61,19 @@ public class Comentario implements Serializable
 	Material material;
 	
 	public Comentario() {
-		titulo="";
-		texto="";
-		fechaCreacion = new Date();
-		usuario = new Usuario();
-		material = new Material();
+		
+	}
+	
+
+	public Comentario(int idComentario, @NonNull String titulo, @NonNull String texto, @NonNull Date fechaCreacion,
+			Usuario usuario, @NonNull Material material) {
+		super();
+		this.idComentario = idComentario;
+		this.titulo = titulo;
+		this.texto = texto;
+		this.fechaCreacion = fechaCreacion;
+		this.usuario = usuario;
+		this.material = material;
 	}
 
 	public Comentario(@NonNull String titulo, @NonNull String texto, @NonNull Date fechaCreacion, Usuario usuario,
@@ -138,12 +155,6 @@ public class Comentario implements Serializable
 			return false;
 		return true;
 	}
-
-
-
-
-
-
 
 	private static final long serialVersionUID = 1L;
 

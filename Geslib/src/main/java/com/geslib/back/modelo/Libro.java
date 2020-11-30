@@ -10,18 +10,25 @@ import javax.persistence.Entity;
 import lombok.NonNull;
 
 
-
+/** 
+ *Modelo de Libro extiende de material consta de constructores
+ *por defecto sin paramentros con todos los parametros y con
+ *todos los parametros excepto el id,getters, setters hashcode e equals
+ * 
+ * @author Miguel del Pozo y Rafael Sacristan
+ * @version 1.0
+*/
 @Entity
 @DiscriminatorValue("libro")
 public class Libro extends Material 
 {
 
 	@NonNull
-	@Column(name="isbn")
+	@Column(name="isbn", length = 13 )
 	private String isbn;
 	
 	@NonNull
-	@Column(name="editorial")
+	@Column(name="editorial", length = 30)
 	private String editorial;
 	
 	@Column(name="numero_paginas")
@@ -34,6 +41,7 @@ public class Libro extends Material
 		editorial="";
 		numeroPaginas=0;
 	}
+	
 	public Libro(Date fechaPublicacion, Genero genero, @NonNull String titulo, @NonNull String descripcion,
 			String imagen, @NonNull int unidadesDisponibles, @NonNull String isbn, @NonNull String editorial,
 			int numeroPaginas) {
@@ -62,6 +70,30 @@ public class Libro extends Material
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((isbn == null) ? 0 : isbn.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Libro other = (Libro) obj;
+		if (isbn == null) {
+			if (other.isbn != null)
+				return false;
+		} else if (!isbn.equals(other.isbn))
+			return false;
+		return true;
 	}
 	
 	

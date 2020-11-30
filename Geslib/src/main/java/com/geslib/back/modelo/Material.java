@@ -18,11 +18,20 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.NonNull;
 
 
-
+/** 
+ *Modelo de Material guarda la informacion comun de todos los
+ *materiales consta de constructores por defecto sin paramentros con 
+ *todos los parametros y con todos los parametros excepto el id
+ *getters, setters, hascode e equals
+ * 
+ * @author Miguel del Pozo y Rafael Sacristan
+ * @version 1.0
+*/
 @Entity
 @Table(name="materiales")
 @DiscriminatorColumn(name="tipo")
@@ -34,7 +43,8 @@ public class Material implements Serializable
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int idMaterial;
 	
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern="dd/MM/yyyy")
 	@Column(name="fecha_publicacion")
 	private Date fechaPublicacion;
 	
@@ -54,7 +64,7 @@ public class Material implements Serializable
 	private String imagen;
 	
 	@NonNull
-	@Column(name="unidadesdisponibles")
+	@Column(name="unidades_disponibles")
 	private int unidadesDisponibles;
 
 	private static final long serialVersionUID = 1L;
@@ -142,5 +152,32 @@ public class Material implements Serializable
 		this.imagen = imagen;
 		this.unidadesDisponibles = unidadesDisponibles;
 	}
+
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + idMaterial;
+		return result;
+	}
+
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Material other = (Material) obj;
+		if (idMaterial != other.idMaterial)
+			return false;
+		return true;
+	}
+	
 	
 }
