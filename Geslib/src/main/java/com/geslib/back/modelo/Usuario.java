@@ -21,7 +21,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-
 import lombok.NonNull;
 
 
@@ -46,17 +45,17 @@ public class Usuario implements Serializable
 	private int idUsuario;
 	
 	@NonNull
-	@Column(name="dni", length = 9)
+	@Column(name="dni", length = 9, unique = true)
 	private String dni;
 	
 	@NonNull
-	@Column(name="email", length = 15)
+	@Column(name="email", length = 15, unique = true)
 	private String email;
 	@NonNull
 	@Column(name="pasword", length = 15)
 	private String password;
 	@NonNull
-	@Column(name="nickname", length = 15)
+	@Column(name="nickname", length = 15, unique = true)
 	private String nickname;
 	
 	@NonNull

@@ -24,7 +24,7 @@ public class Libro extends Material
 {
 
 	@NonNull
-	@Column(name="isbn", length = 13 )
+	@Column(name="isbn", length = 13, unique = true)
 	private String isbn;
 	
 	@NonNull
